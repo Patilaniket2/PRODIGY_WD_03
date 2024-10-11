@@ -1,0 +1,221 @@
+/* Reset default browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styles */
+body {
+    background: linear-gradient(135deg, #1f4037, #99f2c8);
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Game Container */
+.game-container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(8.5px);
+    -webkit-backdrop-filter: blur(8.5px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    text-align: center;
+    color: #fff;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Game Title */
+h1 {
+    margin-bottom: 20px;
+    font-size: 3rem;
+    font-weight: 600;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Game Status */
+#game-status {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    min-height: 2em;
+    transition: color 0.3s ease;
+}
+
+/* Game Board */
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 120px);
+    grid-template-rows: repeat(3, 120px);
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+/* Individual Cells */
+.cell {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 2px solid #fff;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    position: relative;
+}
+
+.cell:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Marker Animations */
+.cell.X::before,
+.cell.O::before {
+    content: '';
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    left: 10%;
+    border-radius: 10px;
+    animation: markerFadeIn 0.3s ease forwards;
+}
+
+.cell.X::before {
+    background-color: transparent;
+    border: 5px solid #ff6347;
+    transform: rotate(45deg);
+}
+
+.cell.X::after {
+    content: '';
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    left: 10%;
+    border-radius: 10px;
+    background-color: transparent;
+    border: 5px solid #ff6347;
+    transform: rotate(-45deg);
+    animation: markerFadeIn 0.3s ease forwards;
+}
+
+.cell.O::before {
+    background-color: transparent;
+    border: 5px solid #4da6ff;
+    border-radius: 50%;
+}
+
+.cell.O::after {
+    content: '';
+    position: absolute;
+    width: 70%;
+    height: 70%;
+    top: 15%;
+    left: 15%;
+    background-color: #4da6ff;
+    border-radius: 50%;
+    opacity: 0;
+    animation: circleFill 0.3s ease forwards;
+}
+
+/* Marker Animations Keyframes */
+@keyframes markerFadeIn {
+    from { opacity: 0; transform: scale(0.5) rotate(45deg); }
+    to { opacity: 1; transform: scale(1) rotate(45deg); }
+}
+
+@keyframes circleFill {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Winning Cells Highlight */
+.win-cell {
+    background-color: #90ee90 !important; /* Light green background */
+    animation: highlight 0.5s ease forwards;
+}
+
+@keyframes highlight {
+    from { background-color: rgba(255, 255, 255, 0.2); }
+    to { background-color: #90ee90; }
+}
+
+/* Controls */
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+button {
+    padding: 12px 24px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    font-family: 'Montserrat', sans-serif;
+}
+
+#reset-button {
+    background: linear-gradient(45deg, #ff4d4d, #ff1a1a);
+    color: #fff;
+}
+
+#reset-button:hover {
+    background: linear-gradient(45deg, #ff1a1a, #ff4d4d);
+    transform: translateY(-3px);
+}
+
+#mode-button {
+    background: linear-gradient(45deg, #4da6ff, #1a8cff);
+    color: #fff;
+}
+
+#mode-button:hover {
+    background: linear-gradient(45deg, #1a8cff, #4da6ff);
+    transform: translateY(-3px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .game-board {
+        grid-template-columns: repeat(3, 80px);
+        grid-template-rows: repeat(3, 80px);
+        gap: 8px;
+    }
+
+    .cell {
+        font-size: 2rem;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    #game-status {
+        font-size: 1.2rem;
+    }
+}
